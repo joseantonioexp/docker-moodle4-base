@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14.1-alpine
+    container_name: db-postgresql
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgrespass
+      - POSTGRES_DB=moodle
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+  moodle:
+    build: .
+   # image: 3ipunt/moodle:4.1.1-php8.0-apache
+    platform: linux/amd64
+    restart: always
+    environment:
+      - dbtype=pgsql
+      - dbhost=db-postgresql
+      - dbname=moodle
+      - dbuser=postgres
+      - dbpass=postgrespass
+      - protocol=http
+      - host=localhost
+      - sslproxy=false
+    ports:
+      - 80:80
+volumes:
+  db:
+    driver: local

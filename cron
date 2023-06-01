@@ -1,0 +1,9 @@
+#* * * * * php /var/www/html/admin/cli/cron.php > /var/log/cron
+#     ,------ MINUTE
+#    / ,----- HOUR
+#   / / ,---- DAY OF MONTH
+#  / / / ,--- MONTH
+# / / / / ,-- DAY OF WEEK
+#/ / / / /
+* * * * * . /etc/environment; /usr/local/bin/php /var/www/html/admin/cli/cron.php >> /var/log/cron/cron.log 2>&1
+#
